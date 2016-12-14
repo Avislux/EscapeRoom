@@ -14,3 +14,6 @@ BuildingEscape/Content/StarterContent/HDRI
 ######################
 *.VC.db
 *.suo
+BuildingEscape/BuildingEscape.sdf
+BuildingEscape/Content/NewMap_BuiltData.uasset
+BuildingEscape/Content/StarterContent/Maps/StarterMap.umap
