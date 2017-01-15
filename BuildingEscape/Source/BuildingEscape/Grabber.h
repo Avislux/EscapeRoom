@@ -29,7 +29,10 @@ private:
 	void FindPhysicsHandleComponent();
 	//Setup (assumed) attached input component
 	void SetupInputComponent();
-
+	
 	//return hit for first phsyics body in reach
 	const FHitResult GetFirstPhysicsBodyInReach();
+	//Return end of reach line.
+	FVector GetReachLineStart();
+	FVector GetReachLineEnd();
 };
