@@ -26,7 +26,7 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 	FVector LineTraceEnd = GetReachLineEnd();
-
+	if (!PhysicsHandle) { return; }
 	//if physics handle attached, move object being held
 	if (PhysicsHandle->GrabbedComponent)
 	{
@@ -96,6 +96,7 @@ void UGrabber::Grab() {
 	}
 }
 void UGrabber::Release() {
+	//if (!PhysicsHandle) { return; }
 	UE_LOG(LogTemp, Warning, TEXT("Grab released"));
 	PhysicsHandle->ReleaseComponent();
 }

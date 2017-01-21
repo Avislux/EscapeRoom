@@ -17,3 +17,5 @@ BuildingEscape/Content/StarterContent/HDRI
 BuildingEscape/BuildingEscape.sdf
 BuildingEscape/Content/NewMap_BuiltData.uasset
 BuildingEscape/Content/StarterContent/Maps/StarterMap.umap
+BuildingEscape/BuildingEscape.opensdf
+BuildingEscape/Config/DefaultInput.ini

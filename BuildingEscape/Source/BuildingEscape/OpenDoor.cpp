@@ -2,6 +2,7 @@
 
 #include "BuildingEscape.h"
 #include "OpenDoor.h"
+#include <string>
 
 
 // Sets default values for this component's properties
@@ -20,7 +21,10 @@ UOpenDoor::UOpenDoor()
 void UOpenDoor::BeginPlay()
 {
 	Super::BeginPlay();
-
+	if (!PressurePlate)
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing "), *GetOwner()->GetName());
+	}
 	
 }
 
@@ -57,7 +61,9 @@ float UOpenDoor::GetTotalMassOFActorsOnPlate()
 	{
 		float mass = actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
 		totalMass += mass;
-		UE_LOG(LogTemp, Warning, TEXT("OverlappingActors: %s, with mass "), *actor->GetName());
+		//FString fTotalMass = FString::SanitizeFloat(totalMass);
+		UE_LOG(LogTemp, Warning, TEXT("OverlappingActors: %s"), *actor->GetName());
 	}
+	UE_LOG(LogTemp, Warning, TEXT("Total mass %f"), totalMass)
 	return totalMass;
 }
