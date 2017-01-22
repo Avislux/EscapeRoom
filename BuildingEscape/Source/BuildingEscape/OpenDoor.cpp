@@ -23,15 +23,12 @@ void UOpenDoor::BeginPlay()
 	Super::BeginPlay();
 	if (!PressurePlate)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s missing "), *GetOwner()->GetName());
+		UE_LOG(LogTemp, Error, TEXT("Pressure plate missing "));
 	}
 	
 }
 
-void UOpenDoor::OpenDoor() {
 
-	Owner->SetActorRotation(FRotator(0.f, OpenAngle, 0.f));
-}
 void UOpenDoor::CloseDoor() {
 
 	Owner->SetActorRotation(FRotator(0.f, 0.f, 0.f));
@@ -42,20 +39,23 @@ void UOpenDoor::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompo
 	Super::TickComponent( DeltaTime, TickType, ThisTickFunction );
 
 	// Poll trigger volume every frame
-	if (GetTotalMassOFActorsOnPlate() > 50.f) {
+	if (GetTotalMassOFActorsOnPlate() > TriggerWeight) {
 
-		OpenDoor();
-		LastDoorOpenTime = GetWorld()->GetTimeSeconds();
+		OnOpen.Broadcast();
+		
 	}
-	if (GetWorld()->GetTimeSeconds() - LastDoorOpenTime > DoorCloseDelay) {
-		CloseDoor();
-	}
+	else { OnClose.Broadcast(); }
+
 }
 
 float UOpenDoor::GetTotalMassOFActorsOnPlate() 
 {
 	float totalMass = 0.f;
 	TArray<AActor*> OverlappingActors;
+	if (!PressurePlate)
+	{
+		return totalMass;
+	}
 	PressurePlate->GetOverlappingActors(OverlappingActors); //Initializes OverlappingActors
 	for (auto& actor : OverlappingActors)
 	{
